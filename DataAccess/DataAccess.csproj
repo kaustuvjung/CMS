@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Migration\" />
+    <Folder Include="Model\setup\" />
+    <Folder Include="SQL\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="21.2.15" />
+    <PackageReference Include="Elmah.Io.AspNetCore" Version="3.12.24" />
+    <PackageReference Include="Elmah.Io.Extensions.Logging" Version="3.10.15" />
+    <PackageReference Include="ElmahCore" Version="1.2.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Helper\Helper.csproj" />
+  </ItemGroup>
+
+</Project>
