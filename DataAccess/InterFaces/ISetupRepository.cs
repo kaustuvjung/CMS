@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories
+namespace DataAccess.InterFaces
 {
-    public class UserRepository
+    public  interface ISetupRepository: IDisposable
     {
-
+        #region Common Repositry
+        #endregion
     }
 }

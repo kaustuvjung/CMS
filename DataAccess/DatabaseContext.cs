@@ -32,7 +32,7 @@ namespace DataAccess
             this.cn = new SqlConnection(this.connectionString);
         }
 
-        public List<SqlParameter> sqlParameters
+        public List<SqlParameter> SqlParameters
         {
             get
             {

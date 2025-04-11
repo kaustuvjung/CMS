@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Migration\" />
-    <Folder Include="Model\setup\" />
     <Folder Include="SQL\" />
   </ItemGroup>
 
