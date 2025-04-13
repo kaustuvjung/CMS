@@ -20,6 +20,12 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\CMS\Controllers\" />
     <Folder Include="Areas\CMS\Views\" />
+    <Folder Include="APIModel\" />
+    <Folder Include="Components\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\app\controller\" />
+    <Folder Include="wwwroot\app\views\" />
   </ItemGroup>
 
   <ItemGroup>

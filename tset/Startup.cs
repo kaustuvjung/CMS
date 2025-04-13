@@ -32,7 +32,7 @@ namespace tset
             {
                 options.OnPermissionCheck = context => context.User.Identity.IsAuthenticated;
             });
-            ConfigureAuthenticationSchemeCookie(services);
+            //ConfigureAuthenticationSchemeCookie(services);
 
         }
           
@@ -76,7 +76,7 @@ namespace tset
 
         public void ConfigureAuthenticationSchemeCookie(IServiceCollection services)
         {
-            if (Configuration.GetSection("IdentityServer") != null && Convert.ToBoolean(Configuration["IdentityServer:Enable"])) 
+            if (Configuration.GetSection("IdentityServer") != null && Convert.ToBoolean(Configuration["IdentityServer:Enable"]))
             {
                 services.AddAuthentication(options =>
                 {
@@ -116,7 +116,7 @@ namespace tset
 
             }
         }
-   
-    
+
+
     }
 }

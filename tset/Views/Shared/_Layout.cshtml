@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    // var currentUser = SessionData.CurrentUser;
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +11,21 @@
     <title>@ViewData["Title"] - tset</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/lite-blue.css" rel="stylesheet" />
+    <link href="~/lib/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+
+    <link href="~/lib/devexpress/css/dx.common.css" rel="stylesheet" />
+    <link href="~/lib/devexpress/css/dx.carmine.css" rel="stylesheet" />
+    <link href="~/lib/npDatepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link href="~/lib/alertify/alertify.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-confirm/jquery-confirm.css" rel="stylesheet" />
+
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/css/print.css" rel="stylesheet" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -34,15 +53,36 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - tset - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular/angular-route.min.js"></script>
+    <script src="~/lib/angular-qr/qrcode.js"></script>
+    <script src="~/lib/angular-qr/angular-qr.js"></script>
+
+    <script src="~/lib/devexpress/js/dx.all.js"></script>
+    <script src="~/lib/devexpress/js/dx.aspnet.data.js"></script>
+
+    <script src="~/js/script.min.js"></script>
+    <script src="~/js/sidebar.large.script.min.js"></script>
+    <script src="~/lib/npDatepicker/js/sajan.nepaliFunctions.min.js"></script>
+    <script src="~/lib/npDatepicker/js/v2.js"></script>
+    <script src="~/lib/alertify/alertify.min.js"></script>
+    <script src="~/lib/printThis/printThis.js"></script>
+    <script src="~/lib/jquery-confirm/jquery-confirm.js"></script>
+    <script src="~/js/common/information.js"></script>
+
+    <partial name ="cms.js.cshtml"/>
+   @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+
+    });
+</script>

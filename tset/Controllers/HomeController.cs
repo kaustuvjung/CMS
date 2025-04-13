@@ -10,7 +10,6 @@ using tset.Models;
 
 namespace tset.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
