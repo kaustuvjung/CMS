@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Model.setup
+namespace DataAccess.Model.Setup
 {
     public class User
     {
@@ -26,8 +26,8 @@ namespace DataAccess.Model.setup
 
      public class LoginModel
     {
-        public string userName { get; set; }
-        public string password { get; set; }
+        public string Username { get; set; }
+        public string  Password { get; set; }
         public string salt { get; set; }
     }
 

@@ -1,5 +1,5 @@
 ﻿using DataAccess.InterFaces;
-using DataAccess.Model.setup;
+using DataAccess.Model.Setup;
 using Helper;
 using System;
 using System.Collections.Generic;
@@ -21,17 +21,10 @@ namespace DataAccess.Repositories
         public async Task<DataTable> Login(LoginModel model)
         {
             var p=  model.PrepareSQLParameters();
-            var query = @"SELECT u.Id, u.DepartmentId, t.Name as Department, u.Name, u.Username, u.Password, u.Salt, u.Email, up.PermissionId AS PermissionId, d.ValidDate
+            var query = @"SELECT u.Id, u.DepartmentId as Department, u.Name, u.Username, u.Password, u.Salt, u.Email, up.PermissionId AS PermissionId
                             FROM dbo.[User] AS u
                                 INNER JOIN dbo.UserPermission as up ON u.Id = up.UserId
-                                LEFT JOIN Setup.Designer as d ON u.Id = d.UserId and d.IsDeleted = 0
-                                OUTER APPLY 
-								(
-										Select Stuff((Select ',' + Name from Setup.Department
-										where Id In (Select value from OPENJSON(u.DepartmentId))
-											for xml Path('')), 1, 1, '') as Name
-								) as t
-                            WHERE (u.Username= @username OR u.Email = @username) AND u.Password = @password AND u.IsActive=1";
+                              WHERE (u.Username= @username OR u.Email = @username) AND u.Password = @password AND u.IsActive=1";
 
             var data = await db.ExecuteDataTableAsync(CommandType.Text, query, p);
             return data;
@@ -39,27 +32,41 @@ namespace DataAccess.Repositories
 
 
 
+        public async Task<User> GetUserByUserNameAsync(LoginModel model)
+        {
+            var p = model.PrepareSQLParameters();
+            var query = @"SELECT Id, DepartmentId, Name, Username, Password, Salt, Email, IsActive FROM
+                dbo.[User] WHERE (Username= @username OR Email = @username)";
+            var data = await db.ExecuteDataTableAsync(CommandType.Text, query, p);
+            return data.TransformToObject<User>();
+        }
 
 
 
-
-        public async Task<DataTable> GetUserByUserNameAsync(string userName)
+        public async Task<DataTable> GetUserByUsernameAsync(string userName)
         {
             var p = db.SqlParameters.AddMore("username", userName);
-            var query = @"SELECT u.Id, u.DepartmentId, t.Name as Department, u.Name, u.Username, u.Password, u.Salt, u.Email, up.PermissionId AS PermissionId
+            var query = @"SELECT u.Id, u.DepartmentId as Department, u.Name, u.Username, u.Password, u.Salt, u.Email, up.PermissionId AS PermissionId
                             FROM dbo.[User] AS u
                                 INNER JOIN dbo.UserPermission as up ON u.Id = up.UserId
-                                OUTER APPLY 
-								(
-										Select Stuff((Select ',' + Name from Setup.Department
-										where Id In (Select value from OPENJSON(u.DepartmentId))
-											for xml Path('')), 1, 1, '') as Name
-								) as t
-                            WHERE (u.Username= @username OR u.Email = @username) AND u.IsActive=1";
+                              WHERE (u.Username= @username OR u.Email = @username) AND u.Password = @password AND u.IsActive=1";
             var data = await db.ExecuteDataTableAsync(CommandType.Text, query, p);
             return data;
 
         }
+
+        public async Task<string> GetUserSaltByUsernameAsync(string userName)
+        {
+            var p = db.SqlParameters.AddMore("username", userName);
+            var querry = @"SELECT Salt FROM dbo.[User] WHERE (Username = @username OR Email =  @username)";
+            var data = await db.ExecuteScalarAsync(CommandType.Text, querry, p);
+            return data.Response.ToString();
+
+
+
+        }
+
+
 
 
 

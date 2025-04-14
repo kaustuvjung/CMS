@@ -1,0 +1,16 @@
+﻿body {
+    font-family: Kalimati;
+    font-size: 14px;
+}
+
+@media print {
+    @page {
+        size: landscape;
+    }
+}
+
+@media print {
+    a[href]:after {
+        content: none !important;
+    }
+}

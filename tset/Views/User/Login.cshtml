@@ -1,0 +1,98 @@
+﻿@model DataAccess.Model.Setup.LoginModel
+@{
+    var returnUrl = @Context.Request.Query["returnurl"];
+    var companyInfo = Configurations.GeneralSettings;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EBPS :Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
+    <link href="~/css/lite-blue.min.css" rel="stylesheet">
+    @*<link href="~/css/site.css" rel="stylesheet" />*@
+    <link href="~/css/user.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="auth-layout-wrap" style="background-image: url(/images/ebps.jpg)">
+        <div class="row w-100">
+            <div class="col-md-8 col-sm-12">
+                <div class="pr-3 text-left">
+                    <h1 class="font-weight-711" style="color:#f8f9fa">@companyInfo.ProductNameNp</h1>
+                    <h3 style="color:#f8f9fa">@companyInfo.ProductName</h3>
+               
+                </div>
+            </div>
+            <div class="auth-content">
+                <div class="card o-hidden">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="p-3">
+                                <div class="auth-logo text-center mb-3">
+                                    <img src="~/images/gov-logo.jpg" alt="" />
+                                </div>
+                                <h2 class="mb-2 text-center text-18">@companyInfo.Title</h2>
+                                <h3 class="mb-2 text-center text-18">@companyInfo.SubTitle1</h3>
+                                <h4 class="mb-2 text-center text-18">@companyInfo.SubTitle2</h4>
+                                @if (TempData["error"] != null)
+                            {
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    @Html.Raw(TempData["error"])
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            }
+                                @if (TempData["message"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    @Html.Raw(TempData["message"])
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            }
+                                @Html.ValidationMessage("Summary")
+                                <form method="post" asp-action="login" asp-route-returnurl="@returnUrl">
+                                    <div class="form-group">
+                                        <label asp-for="Username"></label>
+                                        <input class="form-control form-control-rounded"
+                                               asp-for="Username"
+                                               placeholder="इमेल वा प्रयोगकर्ताको नाम">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Password"></label>
+                                        <input class="form-control form-control-rounded" asp-for="Password" type="password" placeholder="पासवर्ड">
+                                    </div>
+                                    <button class="btn btn-rounded btn-primary btn-block mt-2">साइन इन </button>
+                                </form>
+                                <div class="mt-3 text-center">
+                                    <a class="text-muted" href="@Url.Action("forgotpassword")">
+                                        <u>पासवर्ड बिर्सनुभयो ?</u>
+                                    </a>
+                                    <p class="mt-2">@companyInfo.Footer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="~/js/plugins/jquery-3.3.1.min.js"></script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+        $(() => {
+            $("#Username").focus();
+        });
+    </script>
+</body>
+</html>
+
+
+
+

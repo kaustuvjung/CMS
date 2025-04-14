@@ -1,4 +1,4 @@
-﻿using DataAccess.Model.setup;
+﻿using DataAccess.Model.Setup;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,9 +12,9 @@ namespace DataAccess.InterFaces
     {
         Task<DataTable> Login(LoginModel model);
         //Task<DataTable> GetUserById(int id);
-        //Task<User> GetUserByUserNameAsync(LoginModel model);
-        Task<DataTable> GetUserByUserNameAsync(string userName);
-
+        Task<User> GetUserByUserNameAsync(LoginModel model);
+        Task<DataTable> GetUserByUsernameAsync(string userName);
+        Task<string> GetUserSaltByUsernameAsync(string userName);
 
 
 

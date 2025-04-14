@@ -1,0 +1,21 @@
+﻿.auth-layout-wrap .auth-content {
+    max-width: 330px;
+}
+
+@media (min-width: 1024px) {
+    .auth-layout-wrap .auth-content {
+        min-width: 330px;
+    }
+}
+
+a[disabled]{
+    pointer-events:none;
+}
+
+.input-validation-error{
+    border:1px solid red;
+}
+
+.field-validation-error{
+    color: red;
+}
