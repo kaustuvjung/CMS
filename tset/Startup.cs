@@ -30,7 +30,7 @@ namespace tset
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //Utility
+            Utility.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -70,9 +70,10 @@ namespace tset
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-           
-            app.UseAuthentication();
-            app.UseAuthorization();
+
+            app.UseAuthentication();    
+            app.UseAuthorization();   
+
             app.UseElmah();
 
 
@@ -129,7 +130,6 @@ namespace tset
                             new Claim("Id",  user.Rows[0]["Id"].ToString()),
                             new Claim("Username", user.Rows[0]["Username"].ToString()),
                             new Claim("Department", user.Rows[0]["Department"].ToString()),
-                          
                             new Claim("Permission",  user.Rows[0]["PermissionId"].ToString())
                         };
 
@@ -151,7 +151,7 @@ namespace tset
                     options.AccessDeniedPath = "/main/unauthorized";
                     options.LoginPath = "/user/login";
                     options.LogoutPath = "/user/logoff";
-                    options.Cookie.Name = "__CMS__";
+                    options.Cookie.Name = "__cms__";
                     //options.ExpireTimeSpan = DateTime.Now.TimeOfDay.Add(new TimeSpan(0, 1000, 0));
                 })
                 .AddJwtBearer("Bearer", options =>
@@ -181,6 +181,8 @@ namespace tset
                 });
 
             }
+
         }
+
     }
 }

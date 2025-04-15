@@ -15,23 +15,26 @@ using tset.Models;
 
 namespace tset.Controllers
 {
-
+    [Route("[controller]")]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+    //[Authorize]
     public class UserController : Controller
     {
         private IUserRepository _userRepo;
         public UserController(IUserRepository userRepo) {
             _userRepo = userRepo;
-
         }
 
         #region User Login 
         [HttpGet]
+        [AllowAnonymous]
         [Route("login")]
         public IActionResult Login()
         {
             return PartialView();
         }
         [HttpPost]
+        [AllowAnonymous]
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -65,7 +68,7 @@ namespace tset.Controllers
                         if (Url.IsLocalUrl(""))
                             return Redirect("");
                         else
-                            return RedirectToAction("Privacy", "Home");
+                            return RedirectToAction("index", "Home");
 
                     }
                 }
@@ -92,7 +95,22 @@ namespace tset.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("LogoutFederationFrontChannel")]
+        public void LogoutFederationFrontChannel()
+        {
+            HttpContext.SignOutAsync("cookie");
+            var cookies = Request.Cookies?.Keys;
 
+            if (cookies != null)
+            {
+                foreach (var key in cookies)
+                {
+                    Response.Cookies.Delete(key);
+                }
+            }
+        }
 
 
         private async Task AddCredentialAsync(DataTable user)
@@ -119,6 +137,25 @@ namespace tset.Controllers
 
         }
 
+        [HttpGet]
+        [Route("LogOff")]
+        public IActionResult LogOff()
+        {
+            if (Utility.Configuration.GetSection("IdentityServer") != null && Convert.ToBoolean(Utility.Configuration["IdentityServer:Enable"])) 
+            {
+                HttpContext.SignOutAsync();
+                return Redirect($"{Utility.Configuration["IdentityServer:Endpoint"]}Account/Logout");
+            }
+            else
+            {
+                HttpContext.SignOutAsync();
+                return RedirectToAction("Login");
+            }
+        }
+
+        #endregion
+
+        #region UserMangement
         #endregion
     }
 }

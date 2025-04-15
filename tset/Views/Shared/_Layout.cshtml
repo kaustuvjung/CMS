@@ -1,5 +1,6 @@
 ﻿@{
-    // var currentUser = SessionData.CurrentUser;
+    var currentUser = SessionData.CurrentUser;
+    var companyInfo = Configurations.GeneralSettings;
 }
 
 
@@ -27,35 +28,66 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tset</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                    </ul>
+    <div class="app-admin-wrap layout-sidebar-large">
+        <div class="main-header">
+            <div class="logo">
+                <img src="~/images/gov-logo.jpg" alt="logo" />
+            </div>
+            <div class="menu-toggle">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="d-flex align-items-center">
+                <h1>@companyInfo.ProductNameNp</h1>
+            </div>
+            <div class="m-auto"></div>
+            @if(User.Identity.IsAuthenticated)
+            {
+                <div class="header-part-right">
+                    <a class="text-muted"  href="#" onClick="supportContact()"style="cursor:pointer">
+                        <b>
+                            <i class="fas fa-headset"> सपोट सम्पर्क नम्बर</i>
+                        </b>
+                    </a>
+
+                    <div class="dropdown">
+                        <div class="user col align-self-end">
+                            <img src="~/images/user-image.png" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown"  >
+                                <div class="dropdown-header">
+                                    <i class="i-lock-user m-2"></i> @currentUser.Name
+                                </div>
+                                <a class="dropdown-item" href="#!/user/passwordchange"><i class="fa fa-address-card"></i>पासवर्ड परिवर्तन </a>
+                                <a class="dropdown-item" href="@Url.Action("logoff","user")"  ><i class="fas fa-lock" ></i>Sign Out </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+        <div id="nav-left">
+            <partial name="sideMenu" />
+
+        </div>
+
+        <div class="main-content-wrap sidenav-open d-flex flex-column">
+            <div data-area="page-title" class="page-title">
+                <div class="breadcrumb">
+                    <h1 data-title></h1>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <div >
+                @RenderBody()
+            </div>
+        </div>
+
     </div>
+  
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>

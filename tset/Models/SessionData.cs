@@ -23,7 +23,7 @@ namespace tset.Models
                             Name = context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
                             Username = context.User.Claims.FirstOrDefault(x => x.Type == "Username")?.Value,
                             Department = context.User.Claims.FirstOrDefault(x => x.Type == "Department")?.Value,
-                            DepartmentId = JsonConvert.DeserializeObject<int[]>(context.User.Claims.FirstOrDefault(x => x.Type == "DepartmentId")?.Value),
+                            //DepartmentId = JsonConvert.DeserializeObject<int[]>(context.User.Claims.FirstOrDefault(x => x.Type == "DepartmentId")?.Value),
                         } : null;
                     }
                     else
@@ -44,10 +44,17 @@ namespace tset.Models
             public string Username { get; set; }
             public string Name { get; set; }
             public int PermissionId { get; set; }
-            public bool IsAdmin { get; set; }
-            public string Department {  get; set; }
-            public int[] DepartmentId { get; set; }
 
+            public string Department { get; set; }
+            //public int[] DepartmentId { get; set; }
+
+            public bool IsAdmin
+            {
+                get
+                {
+                    return PermissionId == (int)ePermission.Administrator;
+                }
+            }
         }
  
 
