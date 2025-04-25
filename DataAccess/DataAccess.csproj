@@ -5,8 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SQL\Setup_user_delete.txt" />
+    <None Remove="SQL\Setup_user_get.txt" />
+    <None Remove="SQL\Setup_user_save.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SQL\Setup_user_delete.txt" />
+    <EmbeddedResource Include="SQL\Setup_user_get.txt" />
+    <EmbeddedResource Include="SQL\Setup_user_save.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Migration\" />
-    <Folder Include="SQL\" />
   </ItemGroup>
 
   <ItemGroup>

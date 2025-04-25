@@ -9,8 +9,8 @@ using Helper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.Mvc;
+
 using tset.Models;
 
 namespace tset.Controllers
@@ -156,6 +156,28 @@ namespace tset.Controllers
         #endregion
 
         #region UserMangement
+        [Route("users")]
+        public async  Task<DataTable> GetUser()
+        {
+            var model = await _userRepo.GetUser();
+            return model;
+        }
+        [HttpPost]
+        [Route("saveuser")]
+        public async Task<User> SaveUser([FromBody] User model)
+        {
+           if(model.Id == 0)
+            {
+                var svc = new EncryptionService();
+                var salt = svc.CreateSaltKey(10);
+                model.Password = svc.CreatePasswordHash(model.Password, salt);
+                model.Salt = salt;
+
+            }
+            var response = await _userRepo.SaveUser(model);
+            return model;
+        }
+    
         #endregion
     }
 }

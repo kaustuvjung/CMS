@@ -1,0 +1,2 @@
+﻿Update dbo.User SET IsActive = 0
+	where Id =  @id;

@@ -1,4 +1,5 @@
 ﻿using DataAccess.Model.Setup;
+using Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,7 +18,13 @@ namespace DataAccess.InterFaces
         Task<string> GetUserSaltByUsernameAsync(string userName);
 
 
+        #region user Mgt
 
+        Task<DataTable> GetUser();
+
+        Task<DbResponse> SaveUser(User model);
+        Task<DbResponse> DeleteUser(int id);
+        #endregion
 
     }
 }

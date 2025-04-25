@@ -1,0 +1,6 @@
+﻿Select u.Id, up.PermissionId As PermissionId,
+		u.WardId,
+		u.Name as Name , u.Username, u.Email, u.MobileNumber,
+	from dbo.[User] as u
+	INNER JOIN dbo.UserPermission As upon u.Id = up.UserId
+	where IsActive =  1 AND  IsStatic =  0
