@@ -21,8 +21,6 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\CMS\Controllers\" />
     <Folder Include="Areas\CMS\Views\" />
-    <Folder Include="wwwroot\app\controller\" />
-    <Folder Include="wwwroot\app\views\" />
   </ItemGroup>
 
   <ItemGroup>

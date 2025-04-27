@@ -87,7 +87,7 @@
         </div>
 
     </div>
-  
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -109,10 +109,8 @@
     <script src="~/lib/jquery-confirm/jquery-confirm.js"></script>
     <script src="~/js/common/information.js"></script>
 
-    <partial name ="cms.js.cshtml"/>
-   @*  <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> *@
+    <partial name ="cms.js"/>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

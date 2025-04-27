@@ -5,8 +5,8 @@ BEGIN TRY
 	--IF NOT EXISTS(SELECT  TOP 1 1  FROM OPENJSON)
 	IF @id = 0
 		BEGIN
-			INSERT INTO dbo.User([Name], Email, MobileNumber, UserName, [Password], Salt, DocumentDataId, IsStatic, IsAdmin, IsActive, CreatedBy, CreatedDate)
-					VALUES(@name , @email, @mobilenumber , @username, @password, @salt, NEWID(), 0,0,1,@crearedBy, GETDATE() );
+			INSERT INTO dbo.[User]([Name], Email, MobileNumber, UserName, [Password], Salt, DocumentDataId, IsStatic, IsAdmin, IsActive, CreatedBy, CreatedDate)
+					VALUES(@name , @email, @mobilenumber , @username, @password, @salt, NEWID(), 0,0,1,@createdBy, GETDATE() );
 
 			DECLARE @newId as INT = SCOPE_IDENTITY();
 
@@ -17,7 +17,7 @@ BEGIN TRY
 		END
 	ELSE
 		BEGIN
-			Update dbo.User SET
+			Update dbo.[User] SET
 				[Name] = @name,
 				UserName =  @username,
 				Email = @email,
@@ -26,7 +26,7 @@ BEGIN TRY
 				ModifiedDate =  GetDate()
 			WHERE Id = @id;
 			DELETE FROM dbo.UserPermission Where UserId =  @id
-			INSER INTO dbo.UserPermission(UserId, PermissionId)
+			INSERT INTO dbo.UserPermission(UserId, PermissionId)
 				VALUES(@id, @permissionId);
 		END
 COMMIT

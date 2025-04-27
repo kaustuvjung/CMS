@@ -3,15 +3,19 @@
         $(".breadcrumb [data-title]").text(title);
         $(".sidebar-overlay").click();
     },
+
     showMessage: function (msg) {
-        alertify.Sucess(msg);
+        alertify.success(msg);
     },
+
     showErrorMessage: function (msg) {
         alertify.error(msg);
     },
+
     popupAlert: function (msg) {
-        alertify.alert("message", msg);
+        alertify.alert('Message', msg);
     },
+
     confirm: function (msg, ok, cancel) {
         alertify.confirm('Confirmation', msg, function () {
             if (typeof ok === 'function')
@@ -46,41 +50,43 @@
                         ajaxOptions.contentType = "application/json";
                     }
                 }
+
                 ajaxOptions.xhrFields = { withCredentials: true };
             },
-            OnAjaxError: (e) => {
+            onAjaxError: (e) => {
                 if (e.xhr.status == 0) {
                     window.location.reload();
                 }
-                this.showErrorMessage("Ooops! SomethingWent Wrong");
+                this.showErrorMessage("Oops! Something went wrong");
             },
             onInserted: () => {
-                this.showMessage("Record save Sucessfully");
+                this.showMessage("Record Added Successfully.");
             },
             onUpdating: (key, values) => {
                 values[option.key] = key;
                 var item = $.grep(cacheData, function (i) {
                     return i[option.key] === key;
-                }[0]);
+                })[0];
+
                 $.extend(item, values);
                 updatingObj = item;
             },
             onUpdated: () => {
-                this.showMessage("Record Updated Sucessfully");
+                this.showMessage("Record Updated Successfully.");
             },
             onRemoving: (key) => {
                 this.currentKey = key;
             },
             onRemoved: (key) => {
-                this.showMessage("Record Delete Sucessfuly");
+                this.showMessage("Record Deleted Successfully.");
             },
-            onLoaded: (results) => {
-                cacheData = results;
+            onLoaded: (result) => {
+                console.log(result);
+                cacheData = result;
             }
         });
         return store;
     },
-
 
     ajax: function (options) {
         const { url, async = true, method, data, callback, error, beforeSend, complete } = options;
@@ -90,7 +96,7 @@
             xhrFields: {
                 withCredentials: true
             },
-            aysnc: async,
+            async: async,
             data: JSON.stringify(data),
             method: method,
             contentType: 'application/json',
@@ -102,27 +108,32 @@
                 if (typeof complete === 'function')
                     complete();
             },
-            success: (data){
+            success: (data) => {
                 if (typeof callback === 'function')
                     callback(data);
             },
             error: function (xhr, err) {
+                console.log(xhr, err);
+
                 if (xhr.status == 0) {
                     window.location.reload();
                 }
+
                 if (typeof error === 'function')
                     error(data);
                 else
-                    alertify.error("Ooops! Something Went Wrong");
+                    alertify.error("Oops! Something went wrong");
+
             }
         });
     },
 
-    minDefinedvalueValidator: {
+    minDefinedValueValidator: {
         type: "custom",
-        message: " This Entered value is below Minimum",
+        message: "The entered value is below minimum",
         validationCallback: function (args) {
             let fieldType = args.data.fieldType;
+
             if (fieldType === 'Numeric') {
                 let value = args.data.value;
                 let definedValue = args.data.definedValue;
@@ -133,7 +144,5 @@
             return true;
         }
     }
-
-
 
 }
