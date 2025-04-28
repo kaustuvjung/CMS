@@ -172,7 +172,6 @@ namespace tset.Controllers
                 var salt = svc.CreateSaltKey(10);
                 model.Password = svc.CreatePasswordHash(model.Password, salt);
                 model.Salt = salt;
-
             }
             var response = await _userRepo.SaveUser(model);
             return model;

@@ -26,5 +26,11 @@ namespace DataAccess.InterFaces
         Task<DbResponse> DeleteUser(int id);
         #endregion
 
+
+        #region API USer
+        Task<DataTable> API_GetUsers();
+        Task<string> API_MapUser(int UserId, string token);
+        Task<DataTable> API_AuthorizeUser(string auth_token);
+        #endregion
     }
 }

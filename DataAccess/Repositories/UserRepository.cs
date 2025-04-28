@@ -105,6 +105,36 @@ namespace DataAccess.Repositories
             return dbResponse;
         }
 
+        #region API USER
+        public async Task<DataTable> API_GetUsers()
+        {
+            var q = "SELECT Id as userid, Username as username, Name from [dbo].[User] where IsActive =1 and IsStatic =  0";
+            var data = await db.ExecuteDataTableAsync(CommandType.Text, q);
+            return data;
+        }
+        public async Task<string> API_MapUser(int userId, string token)
+        {
+            var p = db.SqlParameters.AddMore("@userId", userId)
+                                       .AddMore("@token", token);
+            var q = @"Update dbo.[User] set Token = @token, TokenLastUpdated =  GETDATE() where Id =  @userId 
+                       Select top 1 Token  as [auth_token] from dbo.[User] where Id =  @userId and IsActive=1";
+             var data = await db.ExecuteScalarAsync(CommandType.Text, q, p);
+            return (string)data?.Response;
+        }
+        public async Task<DataTable> API_AuthorizeUser(string auth_token)
+        {
+            var p = db.SqlParameters.AddMore("@auth", auth_token, true);
+            var q = @"SELECT u.Id, u.DepartmentId, u.Name, u.Username, u.Password, u.Salt, u.Email, up.PermissionId AS PermissionId, d.ValidDate
+                            FROM dbo.[User] AS u
+                                INNER JOIN dbo.UserPermission as up ON u.Id = up.UserId
+                                LEFT JOIN Setup.Designer as d ON u.Id = d.UserId and d.IsDeleted = 0
+                                 WHERE Token = @auth_token";
+            var data = await db.ExecuteDataTableAsync(CommandType.Text, q, p);
+            return data;
+
+        }
+        #endregion
+
 
 
 
