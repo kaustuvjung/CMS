@@ -1,14 +1,14 @@
 ﻿app.controller("userController", function ($scope, $window) {
     helper.setTitle("User Details");
-    //var lookupPermission = {
-    //    store: new DevExpress.data.CustomStore({
-    //        key: "id",
-    //        loadMode: "raw",
-    //        load: function () {
-    //            return $.getJSON(rootPath + 'api/common/permissions');
-    //        }
-    //    }),
-    //}
+    var lookupPermission = {
+        store: new DevExpress.data.CustomStore({
+            key: "id",
+            loadMode: "raw",
+            load: function () {
+                return $.getJSON(rootPath + 'api/common/permissions');
+            }
+        }),
+    }
     onEditingStart = (e) => {
         e.component.columnOption("password", "formItem.visible", false);
         e.component.columnOption("wardId", "formItem.visible", false);
@@ -52,7 +52,7 @@
                     { dataField: "name", colSpan: 2 },
                     { dataField: "permissionId", colSpan: 2 },
                     { dataField: "departmentId", colSpan: 2 },
-                    { dataField: "designerId", colSpan: 2 },
+                    //{ dataField: "designerId", colSpan: 2 },
                     { dataField: "wardId", colSpan: 2 },
                     { dataField: "email", colSpan: 2 },
                     { dataField: "mobileNumber", colSpan: 2 },
@@ -187,40 +187,40 @@
             {
                 dataField: "permissionId",
                 caption: "परमिशन",
-                //lookup: {
-                //    dataSource: lookupPermission,
-                //    valueExpr: "id",
-                //    displayExpr: "displayName"
-                //},
+                lookup: {
+                    dataSource: lookupPermission,
+                    valueExpr: "id",
+                    displayExpr: "displayName"
+                },
                 validationRules: [{ type: "required", message: 'कृपया परमिशन छान्नुहोस्' }]
             },
-            //{
-            //    dataField: "departmentId",
-            //    caption: "शाखा",
-            //    //setCellValue: function (rowData, value) {
-            //    //    //rowData.departmentId = value;
-            //    //    //if (value != 1) { //Not Designer
-            //    //    //    rowData.designerId = 0;
-            //    //    //}
-            //    //    //if (value != 3) { //Not Ward
-            //    //    //    rowData.wardId = 0;
-            //    //    //}
-            //    //},
-            //    calculateDisplayValue: function (e) {
-            //        var departmentIds, departmentNames = [];
+            {
+                dataField: "departmentId",
+                caption: "शाखा",
+                //setCellValue: function (rowData, value) {
+                //    //rowData.departmentId = value;
+                //    //if (value != 1) { //Not Designer
+                //    //    rowData.designerId = 0;
+                //    //}
+                //    //if (value != 3) { //Not Ward
+                //    //    rowData.wardId = 0;
+                //    //}
+                //},
+                calculateDisplayValue: function (e) {
+                    var departmentIds, departmentNames = [];
 
-            //        if (e.departmentId && !$.isArray(e.departmentId))
-            //            departmentIds = JSON.parse(e.departmentId) || [];
-            //        else
-            //            departmentIds = e.departmentId || [];
+                    if (e.departmentId && !$.isArray(e.departmentId))
+                        departmentIds = JSON.parse(e.departmentId) || [];
+                    else
+                        departmentIds = e.departmentId || [];
 
-            //        for (var i = 0; i < departmentIds.length; i++) {
-            //            departmentNames.push(departments.filter(x => x.id == departmentIds[i])[0]?.name);
-            //        }
-            //        return departmentNames.join(', ');
-            //    },
-            //    validationRules: [{ type: "required", message: 'कृपया शाखा छान्नुहोस्' }]
-            //},
+                    for (var i = 0; i < departmentIds.length; i++) {
+                        departmentNames.push(departments.filter(x => x.id == departmentIds[i])[0]?.name);
+                    }
+                    return departmentNames.join(', ');
+                },
+                validationRules: [{ type: "required", message: 'कृपया शाखा छान्नुहोस्' }]
+            },
             //{
             //    dataField: "wardId",
             //    caption: "वडा",

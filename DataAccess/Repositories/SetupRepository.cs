@@ -26,7 +26,12 @@ namespace DataAccess.Repositories
             return result;
         }
 
-
+        public async Task<List<Permission>> GetPermissions()
+        {
+            var q = @"Select Id, Name , DisplayName, Module  from dbo.Permission";
+            var data = await db.ExecuteDataTableAsync(CommandType.Text, q);
+            return data.TransformToList<Permission>().ToList();
+        }
 
         public void Dispose()
         {

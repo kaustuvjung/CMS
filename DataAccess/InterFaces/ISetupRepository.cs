@@ -12,6 +12,8 @@ namespace DataAccess.InterFaces
         #region Common Repositry
 
         Task<GeneralSetting> GetCompanyInfo();
+
+        Task<List<Permission>> GetPermissions();
         #endregion
     }
 }
