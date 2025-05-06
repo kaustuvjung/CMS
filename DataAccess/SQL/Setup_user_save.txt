@@ -5,8 +5,8 @@ BEGIN TRY
 	--IF NOT EXISTS(SELECT  TOP 1 1  FROM OPENJSON)
 	IF @id = 0
 		BEGIN
-			INSERT INTO dbo.[User]([Name], Email, MobileNumber, UserName, [Password], Salt, DocumentDataId, IsStatic, IsAdmin, IsActive, CreatedBy, CreatedDate)
-					VALUES(@name , @email, @mobilenumber , @username, @password, @salt, NEWID(), 0,0,1,@createdBy, GETDATE() );
+			INSERT INTO dbo.[User]([Name], DepartmentId, WardId, Email, MobileNumber, UserName, [Password], Salt, DocumentDataId, IsStatic, IsAdmin, IsActive, CreatedBy, CreatedDate)
+					VALUES(@name , @departmentId,@wardId, @email, @mobilenumber , @username, @password, @salt, NEWID(), 0,0,1,@createdBy, GETDATE() );
 
 			DECLARE @newId as INT = SCOPE_IDENTITY();
 
@@ -20,6 +20,8 @@ BEGIN TRY
 			Update dbo.[User] SET
 				[Name] = @name,
 				UserName =  @username,
+				DepartmentId = @departmentId,
+				wardId  = @wardId,
 				Email = @email,
 				MobileNumber =  @mobilenumber,
 				ModifiedBy = @modifiedBy,

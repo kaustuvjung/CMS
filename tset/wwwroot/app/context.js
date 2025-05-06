@@ -2,35 +2,57 @@
     cacheConfig: {
         ward: {
             key: 'ward',
-           url:'api/common/wards'
+            url: rootPath+ 'api/common/wards'
         },
         province: {
             key: 'province',
-            url:'api/common/provinces'
+            url: rootPath +'api/common/provinces'
         },
         district: {
             key: 'district',
-            url:'api/common/districts'
+            url: rootPath+ 'api/common/districts'
         },
         localBody: {
             key: 'localbody',
-            url:'api/common/localbodies'
+            url: rootPath+'api/common/localbodies'
         },
         department: {
             key: 'department',
-            url: rootpath + 'api/common/departments'
+            url: rootPath + 'api/common/departments'
         },
         currentUser: {
             key: 'currentUser',
-            url: rootpath +  'api/common/currentUsers'
+            url: rootPath + 'api/common/currentuser'
         }
-
+       
     },
     init: function () {
         var _this = this;
+        Object.keys(_this.cacheConfig).forEach(function (x) {
+            helper.ajax({
+                url: _this.cacheConfig[x].url,
+                method: 'GET',
+                callback: function (resp) {
+                    sessionStorage.setItem(_this.cacheConfig[x].key, JSON.stringify(resp))
 
+                    //if (_this.cacheConfig[x].key == 'companyInfo') {
+                    //    var setting = context.getCachedData(context.cacheConfig.companyInfo);
+                    //}
 
+                    if (_this.cacheConfig[x].key == 'setting') {
+                        utils.settings = context.getCachedData(context.cacheConfig.setting);
+                        utils.contentEditable = utils.settings.filter(x => x.Name == 'ContentEditable')[0]?.value == 'true' ?? false;
+                    }
+                }
+            });
+        });
+    },
+
+    getCachedData: function (item) {
+        let list = [];
+        list = JSON.parse(sessionStorage.getItem(item.key));
+        return list;
     }
+};
 
-
-}
+context.init();

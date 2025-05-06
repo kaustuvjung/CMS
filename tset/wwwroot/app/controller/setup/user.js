@@ -1,5 +1,9 @@
 ﻿app.controller("userController", function ($scope, $window) {
-    helper.setTitle("User Details");
+    helper.setTitle("User Details")
+
+    const departments = context.getCachedData(context.cacheConfig.department);
+    const wards = context.getCachedData(context.cacheConfig.ward);
+
     var lookupPermission = {
         store: new DevExpress.data.CustomStore({
             key: "id",
@@ -9,22 +13,37 @@
             }
         }),
     }
+
+    //var lookupDesigner = {
+    //    store: new DevExpress.data.CustomStore({
+    //        key: "id",
+    //        loadMode: "raw",
+    //        load: function () {
+    //            return $.getJSON(rootPath + 'api/setup/designers');
+    //        }
+    //    })
+    //}
     onEditingStart = (e) => {
         e.component.columnOption("password", "formItem.visible", false);
-        e.component.columnOption("wardId", "formItem.visible", false);
+        e.component.columnOption("wardId", "formItem.visible", true);
         e.component.columnOption("designerId", "formItem.visible", false);
-        if (e.data.departmentId.indexOf(3) != -1) {
-            e.component.columnOption("wardId", "formItem.visible", true);
-        }
-        if (e.data.departmentId.indexOf(1) != -1) {
-            e.component.columnOption("designerId", "formItem.visible", true);
-        }
+        //if (e.data.departmentId.indexOf(3) != -1) {
+        //    e.component.columnOption("wardId", "formItem.visible", true);
+        //}
+        //if (e.data.departmentId.indexOf(1) != -1) {
+        //    e.component.columnOption("designerId", "formItem.visible", true);
+        //}
     }
     onInitNewRow = (e) => {
         e.component.columnOption("password", "formItem.visible", true);
         e.component.columnOption("designerId", "formItem.visible", false);
-        e.component.columnOption("wardId", "formItem.visible", false);
-    
+        e.component.columnOption("wardId", "formItem.visible", true);
+        //if (e.data.departmentId == 3) {
+        //    e.component.columnOption("wardId", "formItem.visible", true);
+        //}
+        //if (e.data.departmentId == 1) {
+        //    e.component.columnOption("designerId", "formItem.visible", true);
+        //}
     }
 
     var selectedRowData = {};
@@ -66,12 +85,7 @@
         },
         pager: {
             showPageSizeSelector: true,
-            allowedPageSizes: [10, 25, 50, 100],
-            infoText: ('Page') + " {0} of {1} ({2} " + ('name') + ")",
-            showInfo: true,
-            showNavigationButtons: true,
-            showPageSizeSelector: true,
-            visible: true
+            allowedPageSizes: [10, 25, 50, 100]
         },
         searchPanel: {
             visible: true,
@@ -141,12 +155,12 @@
                         dataGrid.columnOption("designerId", "formItem.visible", false);
                     }
 
-                    if (value.indexOf(3) !== -1) {
-                        dataGrid.columnOption("wardId", "formItem.visible", true);
-                    }
-                    else {
-                        dataGrid.columnOption("wardId", "formItem.visible", false);
-                    }
+                    //if (value.indexOf(3) !== -1) {
+                    //    dataGrid.columnOption("wardId", "formItem.visible", true);
+                    //}
+                    //else {
+                    //    dataGrid.columnOption("wardId", "formItem.visible", false);
+                    //}
                 }
             }
 
@@ -221,24 +235,24 @@
                 },
                 validationRules: [{ type: "required", message: 'कृपया शाखा छान्नुहोस्' }]
             },
-            //{
-            //    dataField: "wardId",
-            //    caption: "वडा",
-            //    calculateDisplayValue: function (e) {
-            //        var wardIds, wardNames = [];
+            {
+                dataField: "wardId",
+                caption: "वडा",
+                calculateDisplayValue: function (e) {
+                    var wardIds, wardNames = [];
 
-            //        if (e.wardId && !$.isArray(e.wardId))
-            //            wardIds = JSON.parse(e.wardId) || [];
-            //        else
-            //            wardIds = e.wardId || [];
+                    if (e.wardId && !$.isArray(e.wardId))
+                        wardIds = JSON.parse(e.wardId) || [];
+                    else
+                        wardIds = e.wardId || [];
 
-            //        for (var i = 0; i < wardIds.length; i++) {
-            //            wardNames.push(wards.filter(x => x.id == wardIds[i])[0]?.nameNp);
-            //        }
-            //        return wardNames.join(', ');
-            //    },
-            //    validationRules: [{ type: "required", message: 'कृपया वडा छान्नुहोस्' }]
-            //},
+                    for (var i = 0; i < wardIds.length; i++) {
+                        wardNames.push(wards.filter(x => x.id == wardIds[i])[0]?.nameNp);
+                    }
+                    return wardNames.join(', ');
+                },
+                validationRules: [{ type: "required", message: 'कृपया वडा छान्नुहोस्' }]
+            },
             //{
             //    dataField: "designerId",
             //    caption: "डिजाईनर",
@@ -297,7 +311,18 @@
                     }]
             }
         ]
-       
+        //onEditorPreparing: function (e) {
+        //    if (e.dataField == "designerId") {
+        //        setTimeout(function () {
+        //            let dsnSelect = e.editorElement.dxSelectBox('instance');
+        //            lookupDesigner.store.load().done(function (result) {
+        //                console.log(result);
+        //                dsnSelect.option("dataSource", result.filter(x => x.userId == null || x.Id == e.value));
+        //            });
+
+        //        }, 1000);
+        //    }
+        //}
     }).dxDataGrid('instance');
 
     var passwordPopUp = $("#popUp").dxPopup({
@@ -389,5 +414,6 @@
             }
         ]
     });
+
 
 })
