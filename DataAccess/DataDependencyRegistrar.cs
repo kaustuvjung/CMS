@@ -17,6 +17,7 @@ namespace DataAccess
             DI.Instance.Services.AddScoped<DatabaseContext>();
             DI.Instance.Services.AddScoped<IUserRepository, UserRepository>();
             DI.Instance.Services.AddScoped<ISetupRepository, SetupRepository>();
+            DI.Instance.Services.AddScoped<ISoftwareRepository, SoftwareRepository>();
         }
     }
 }

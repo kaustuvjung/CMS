@@ -78,13 +78,15 @@ namespace DataAccess.Repositories
 
             var p = db.SqlParameters.AddMore("name", model.Name)
                                      .AddMore("@email", model.Email)
-                                     .AddMore("mobilenumber", model.MobileNo)
-                                     .AddMore("username", model.UserName)
-                                     .AddMore("password", model.Password)
-                                     .AddMore("salt", model.Salt)
-                                     .AddMore("createdBy", model.CreatedBy)
-                                     .AddMore("permissionId", model.PermissionId)
-                                     .AddMore("modifiedBy", model.ModifiedBy)
+                                     .AddMore("@mobilenumber", model.MobileNumber)
+                                     .AddMore("@username", model.UserName)
+                                     .AddMore("@password", model.Password, true)
+                                     .AddMore("@salt", model.Salt, true)
+                                     .AddMore("@departmentId", model.DepartmentId.ConverToJSON(), true)
+                                     .AddMore("@wardId", model.WardId.ConverToJSON(), true)
+                                     .AddMore("@createdBy", model.CreatedBy)
+                                     .AddMore("@permissionId", model.PermissionId)
+                                     .AddMore("@modifiedBy", model.ModifiedBy, true)
                                      .AddMore("@Id", model.Id);
             var q = QueryBuilder.GetCommandText["Setup_user_save"];
             var dbResponse = await db.ExecuteScalarAsync(CommandType.Text, q, p);

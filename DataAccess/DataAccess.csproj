@@ -8,12 +8,14 @@
     <None Remove="SQL\Setup_user_delete.txt" />
     <None Remove="SQL\Setup_user_get.txt" />
     <None Remove="SQL\Setup_user_save.txt" />
+    <None Remove="SQL\Software_save.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="SQL\Setup_user_delete.txt" />
     <EmbeddedResource Include="SQL\Setup_user_get.txt" />
     <EmbeddedResource Include="SQL\Setup_user_save.txt" />
+    <EmbeddedResource Include="SQL\Software_save.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,5 +34,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Helper\Helper.csproj" />
   </ItemGroup>
+
+
+	<ItemGroup>
+		<Reference Include="DateMiti">
+			<HintPath>..\Library\DateMiti.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
 </Project>

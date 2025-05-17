@@ -11,12 +11,16 @@ namespace DataAccess.Model.Setup
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int[] DepartmentId { get; set; }
+        public int? DesignerId { get; set; }
+        public int[] WardId { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public long MobileNumber { get; set; }
         public string UserName { get; set; }
-        public long MobileNo {  get; set; }  
+        public string Password { get; set; }
         public string Salt { get; set; }
         public int PermissionId { get; set; }
+        public string Permission { get; set; }
         public int CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

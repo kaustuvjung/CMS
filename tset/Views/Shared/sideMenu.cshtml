@@ -1,6 +1,6 @@
 ﻿@using Helper
 @{
-    // var currentUser = SessionData.CurrentUser;
+    var currentUser = SessionData.CurrentUser;
     // var companyInfo = Configurations.GeneralSettings;
 }
 
@@ -21,6 +21,12 @@
                 </a>
                 <div class="triangle"></div>
             </li>
+            <li class="nav-item" data-nav="dashboard">
+                <a class="nav-item-hold" href="#!/software/softwareuserlist">
+                    <i class="nav-icon fa fa-desktop"></i>
+                    <span class="nav-text">Software User</span>
+                </a>
+            </li>
         </ul>
 
     </div>
@@ -34,10 +40,19 @@
                         <span class="item-name">Fiscal Year</span>
                     </a>
                 </li>
+                @if(currentUser.IsAdmin){
+
                 <li class="nav-item">
                     <a href="#!/user/users">
                         <i class=""></i>
                         <span class="item-name">Users</span>
+                    </a>
+                </li>  
+                }
+                <li class="nav-item">
+                    <a href="#!/setup/software">
+                        <i class=""></i>
+                        <span class="item-name">सफ्टवेयर सूची</span>
                     </a>
                 </li>
                 <li>

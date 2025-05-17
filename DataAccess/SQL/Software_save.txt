@@ -1,0 +1,16 @@
+﻿if @Id> 0
+Begin
+	Update dbo.Software Set
+	  Name  = @Name, 
+	  alias =  @alias
+	where Id =@Id
+End
+Else
+Begin
+	Insert into dbo.Software(Name, alias)
+		values (@Name, @alias)
+	set @Id =  SCOPE_IDENTITY();
+
+
+End
+Select @Id as Id
